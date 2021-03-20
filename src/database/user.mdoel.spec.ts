@@ -72,10 +72,9 @@ describe('preSaveHook', () => {
 });
 
 describe('nameGetHook', () => {
-  test('should compute name with firstName and lastName', async () => {
+  test('should compute name with fullName', async () => {
     const contextMock = {
-      firstName: 'Hantsy',
-      lastName: 'Bai',
+      fullName: 'Hantsy',
     };
     const name = await nameGetHook.call(contextMock);
     expect(name).toBe('Hantsy Bai');

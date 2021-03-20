@@ -8,7 +8,7 @@ import { RegisterController } from './register.controller';
 // import { SendgridModule } from '../sendgrid/sendgrid.module';
 @Module({
   imports: [DatabaseModule],
-  providers: [UserService, UserDataInitializerService],
+  providers: [UserService],
   exports: [UserService],
   controllers: [ProfileController, UserController, RegisterController],
 })
