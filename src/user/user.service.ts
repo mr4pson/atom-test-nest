@@ -72,7 +72,7 @@ export class UserService {
     //   personalizations: [
     //     {
     //       to: data.email,
-    //       dynamicTemplateData: { name: data.firstName + ' ' + data.lastName },
+    //       dynamicTemplateData: { name: data.fullName + ' ' + data.lastName },
     //     }
     //   ]
 
@@ -89,6 +89,9 @@ export class UserService {
     if (withPosts) {
       userQuery.populate('posts');
     }
+    userQuery.exec().then((data) => {
+      console.warn(data);
+    });
     return from(userQuery.exec()).pipe(
       mergeMap((p) => (p ? of(p) : EMPTY)),
       throwIfEmpty(() => new NotFoundException(`user:${id} was not found`)),

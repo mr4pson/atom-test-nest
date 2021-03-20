@@ -1,15 +1,19 @@
 import { compare, hash } from 'bcrypt';
 import { Connection, Document, Model, Schema, SchemaTypes } from 'mongoose';
 import { from, Observable } from 'rxjs';
+import { Sex } from '../shared/enum/sex.enum';
 import { RoleType } from '../shared/enum/role-type.enum';
 interface User extends Document {
   comparePassword(password: string): Observable<boolean>;
   readonly username: string;
   readonly email: string;
   readonly password: string;
-  readonly firstName?: string;
-  readonly lastName?: string;
+  readonly fullName: string;
   readonly roles?: RoleType[];
+  readonly city: string;
+  readonly phone: string;
+  readonly avatar: string;
+  readonly sex: Sex;
 }
 
 type UserModel = Model<User>;
@@ -19,8 +23,11 @@ const UserSchema = new Schema(
     username: SchemaTypes.String,
     password: SchemaTypes.String,
     email: SchemaTypes.String,
-    firstName: { type: SchemaTypes.String, required: false },
-    lastName: { type: SchemaTypes.String, required: false },
+    fullName: SchemaTypes.String,
+    city: SchemaTypes.String,
+    phone: SchemaTypes.String,
+    avatar: SchemaTypes.String,
+    sex: SchemaTypes.String,
     roles: [
       { type: SchemaTypes.String, enum: ['ADMIN', 'USER'], required: false },
     ],
@@ -57,11 +64,11 @@ function comparePasswordMethod(password: string): Observable<boolean> {
 
 UserSchema.methods.comparePassword = comparePasswordMethod;
 
-function nameGetHook() {
-  return `${this.firstName} ${this.lastName}`;
-}
+// function nameGetHook() {
+//   return `${this.fullName} ${this.lastName}`;
+// }
 
-UserSchema.virtual('name').get(nameGetHook);
+// UserSchema.virtual('name').get(nameGetHook);
 
 UserSchema.virtual('posts', {
   ref: 'Post',
@@ -77,7 +84,7 @@ export {
   UserModel,
   UserSchema,
   preSaveHook,
-  nameGetHook,
+  // nameGetHook,
   comparePasswordMethod,
   userModelFn,
 };

@@ -9,16 +9,14 @@ describe('RegisterDto', () => {
     const dto: RegisterDto = {
       username: 'hantsy',
       password: 'password',
-      firstName: 'Hantsy',
-      lastName: 'Bai',
+      fullName: 'Hantsy Bai',
       email: 'hantsy@gmail.com',
     };
 
     expect(dto).toEqual({
       username: 'hantsy',
       password: 'password',
-      firstName: 'Hantsy',
-      lastName: 'Bai',
+      fullName: 'Hantsy Bai',
       email: 'hantsy@gmail.com',
     });
   });
