@@ -1,3 +1,5 @@
+import { AnswerController } from './test/answer.controller';
+import { TestModule } from './test/test.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
@@ -8,6 +10,7 @@ import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
+    TestModule,
     ConfigModule.forRoot({ ignoreEnvFile: true }),
     DatabaseModule,
     AuthModule,
