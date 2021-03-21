@@ -3,11 +3,13 @@ import { Answer, AnswerSchema } from './answer.model';
 import {
   ANSWER_MODEL,
   DATABASE_CONNECTION,
+  FAQ_MODEL,
   NEWS_MODEL,
   QUESTION_MODEL,
   QUESTION_OPTION_MODEL,
   USER_MODEL,
 } from './database.constants';
+import { Faq, FaqSchema } from './faq.model';
 import { News, NewsSchema } from './news.model';
 import { Question, QuestionSchema } from './question.model';
 import { QuestionOption, QuestionOptionSchema } from './questionOption.model';
@@ -44,11 +46,13 @@ export const databaseModelsProviders = [
   {
     provide: NEWS_MODEL,
     useFactory: (connection: Connection) =>
-      connection.model<News>(
-        'News',
-        NewsSchema,
-        'news',
-      ),
+      connection.model<News>('News', NewsSchema, 'news'),
+    inject: [DATABASE_CONNECTION],
+  },
+  {
+    provide: FAQ_MODEL,
+    useFactory: (connection: Connection) =>
+      connection.model<Faq>('Faq', FaqSchema, 'faqs'),
     inject: [DATABASE_CONNECTION],
   },
 ];
