@@ -1,4 +1,4 @@
-import { Body, ConflictException, Controller, Post, Res } from '@nestjs/common';
+import { Body, ConflictException, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { Observable } from 'rxjs';
 import { mergeMap, map } from 'rxjs/operators';
@@ -31,7 +31,7 @@ export class RegisterController {
                   map((user) =>
                     res
                       .location('/users/' + user.id)
-                      .status(201)
+                      .status(HttpStatus.CREATED)
                       .send(),
                   ),
                 );
