@@ -1,7 +1,7 @@
 import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class NewsDto {
+export class ChangeNewsDto {
   @IsNotEmpty()
   @ApiProperty({
     type: String,
@@ -14,16 +14,8 @@ export class NewsDto {
     type: String,
     required: true,
   })
-  readonly createdDate: string;
-
-  @IsNotEmpty()
-  @ApiProperty({
-    type: String,
-    required: true,
-  })
   readonly heading: string;
 
-  @IsNotEmpty()
   @ApiProperty({
     type: String,
     required: true,
