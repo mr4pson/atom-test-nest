@@ -1,3 +1,4 @@
+import { FaqModule } from './faq/faq.module';
 import { TestModule } from './test/test.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -9,6 +10,7 @@ import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
+    FaqModule,
     TestModule,
     ConfigModule.forRoot({ ignoreEnvFile: true }),
     DatabaseModule,

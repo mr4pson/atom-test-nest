@@ -3,10 +3,12 @@ import { Answer, AnswerSchema } from './answer.model';
 import {
   ANSWER_MODEL,
   DATABASE_CONNECTION,
+  FAQ_MODEL,
   QUESTION_MODEL,
   QUESTION_OPTION_MODEL,
   USER_MODEL,
 } from './database.constants';
+import { Faq, FaqSchema } from './faq.model';
 import { Question, QuestionSchema } from './question.model';
 import { QuestionOption, QuestionOptionSchema } from './questionOption.model';
 import { userModelFn } from './user.model';
@@ -37,6 +39,12 @@ export const databaseModelsProviders = [
         QuestionOptionSchema,
         'questionOptions',
       ),
+    inject: [DATABASE_CONNECTION],
+  },
+  {
+    provide: FAQ_MODEL,
+    useFactory: (connection: Connection) =>
+      connection.model<Faq>('Faq', FaqSchema, 'faqs'),
     inject: [DATABASE_CONNECTION],
   },
 ];
