@@ -5,12 +5,14 @@ import {
   DATABASE_CONNECTION,
   FAQ_MODEL,
   NEWS_MODEL,
+  PARTNER_MODEL,
   QUESTION_MODEL,
   QUESTION_OPTION_MODEL,
   USER_MODEL,
 } from './database.constants';
 import { Faq, FaqSchema } from './faq.model';
 import { News, NewsSchema } from './news.model';
+import { Partner, PartnerSchema } from './partner.model';
 import { Question, QuestionSchema } from './question.model';
 import { QuestionOption, QuestionOptionSchema } from './questionOption.model';
 import { userModelFn } from './user.model';
@@ -53,6 +55,12 @@ export const databaseModelsProviders = [
     provide: FAQ_MODEL,
     useFactory: (connection: Connection) =>
       connection.model<Faq>('Faq', FaqSchema, 'faqs'),
+    inject: [DATABASE_CONNECTION],
+  },
+  {
+    provide: PARTNER_MODEL,
+    useFactory: (connection: Connection) =>
+      connection.model<Partner>('Partner', PartnerSchema, 'partners'),
     inject: [DATABASE_CONNECTION],
   },
 ];

@@ -22,7 +22,7 @@ export class FaqService {
   findById(id: string): Observable<Faq> {
     return from(this.faqModel.findOne({ _id: id }).exec()).pipe(
       mergeMap((p) => (p ? of(p) : EMPTY)),
-      throwIfEmpty(() => new NotFoundException(`post:$id was not found`)),
+      throwIfEmpty(() => new NotFoundException(`faq:$id was not found`)),
     );
   }
 
@@ -43,7 +43,7 @@ export class FaqService {
 
   deleteById(id: string): Observable<Faq> {
     return from(this.faqModel.findByIdAndRemove(id).exec()).pipe(
-      throwIfEmpty(() => new NotFoundException(`question:$id was not found`)),
+      throwIfEmpty(() => new NotFoundException(`faq:$id was not found`)),
     );
   }
 }
