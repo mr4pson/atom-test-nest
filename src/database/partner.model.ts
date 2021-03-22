@@ -5,7 +5,7 @@ interface Partner extends Document {
   readonly link: string;
   readonly uploadFile: string;
   readonly description: string;
-  readonly visibility: boolean;
+  readonly visible: boolean;
 }
 
 type PartnerModel = Model<Partner>;
@@ -16,7 +16,7 @@ const PartnerSchema = new Schema(
     link: SchemaTypes.String,
     uploadFile: SchemaTypes.String,
     description: SchemaTypes.String,
-    visibility: SchemaTypes.Boolean,
+    visible: SchemaTypes.Boolean,
   },
   {
     timestamps: true,
