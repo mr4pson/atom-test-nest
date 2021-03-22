@@ -34,5 +34,5 @@ export class ChangePartnerDto {
     type: Boolean,
     required: true,
   })
-  readonly visibility: boolean;
+  readonly visible: boolean;
 }
