@@ -9,7 +9,6 @@ import { NEWS_MODEL } from 'src/database/database.constants';
 import { News } from 'src/database/news.model';
 import { ChangeNewsDto } from './changeNews.dto';
 
-
 @Injectable({ scope: Scope.REQUEST })
 export class NewsService {
   constructor(
@@ -31,17 +30,12 @@ export class NewsService {
   update(id: string, data: ChangeNewsDto): Observable<News> {
     return from(
       this.newsModel.findOneAndUpdate({ _id: id }, { ...data }).exec(),
-    ).pipe(
-      throwIfEmpty(() => new NotFoundException(`news:$id was not found`)),
-    );
+    ).pipe(throwIfEmpty(() => new NotFoundException(`news:$id was not found`)));
   }
 
   delete(id: string): Observable<News> {
-    return from(
-      this.newsModel.findByIdAndDelete(id).exec(),
-    ).pipe(
+    return from(this.newsModel.findByIdAndDelete(id).exec()).pipe(
       throwIfEmpty(() => new NotFoundException(`news:$id was not found`)),
     );
   }
-
 }

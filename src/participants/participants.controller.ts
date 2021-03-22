@@ -18,26 +18,29 @@ import { RolesGuard } from 'src/auth/guard/roles.guard';
 import { RoleType } from 'src/shared/enum/role-type.enum';
 import { ParseObjectIdPipe } from 'src/shared/pipe/parse-object-id.pipe';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
-import { ChangeNewsDto } from './changeNews.dto';
-import { NewsService } from './news.service';
+import { ChangeParticipantDto } from './changeParticipant.dto';
+import { ParticipantsService } from './participants.service';
 
-@Controller({ path: 'news', scope: Scope.REQUEST })
-export class NewsController {
-  constructor(private newsService: NewsService) {}
+@Controller({ path: 'participants', scope: Scope.REQUEST })
+export class ParticipantsController {
+  constructor(private participantsService: ParticipantsService) {}
 
   @Get('')
-  getNews(): Observable<any[]> {
-    return this.newsService.findAll();
+  getParticipants(): Observable<any[]> {
+    return this.participantsService.findAll();
   }
 
   @Post('')
   @HasRoles(RoleType.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  createNews(@Body() news: ChangeNewsDto, @Res() res: any): Observable<any> {
-    return this.newsService.save(news).pipe(
-      map((news) => {
+  createParticipant(
+    @Body() participant: ChangeParticipantDto,
+    @Res() res: any,
+  ): Observable<any> {
+    return this.participantsService.save(participant).pipe(
+      map((participant) => {
         return res
-          .location('/news/' + news._id)
+          .location('/participants/' + participant._id)
           .status(HttpStatus.CREATED)
           .send();
       }),
@@ -47,15 +50,15 @@ export class NewsController {
   @Put(':id')
   @HasRoles(RoleType.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  updateNews(
+  updateParticipant(
     @Param('id', ParseObjectIdPipe) id: string,
-    @Body() news: ChangeNewsDto,
+    @Body() participant: ChangeParticipantDto,
     @Res() res: any,
   ): Observable<any> {
-    return this.newsService.update(id, news).pipe(
-      map((news) => {
+    return this.participantsService.update(id, participant).pipe(
+      map((participant) => {
         return res
-          .location('/news/' + news._id)
+          .location('/participants/' + participant._id)
           .status(HttpStatus.OK)
           .send();
       }),
@@ -65,14 +68,14 @@ export class NewsController {
   @Delete(':id')
   @HasRoles(RoleType.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  deleteNews(
+  deleteParticipant(
     @Param('id', ParseObjectIdPipe) id: string,
     @Res() res: any,
   ): Observable<any> {
-    return this.newsService.delete(id).pipe(
-      map((news) => {
+    return this.participantsService.delete(id).pipe(
+      map((participant) => {
         return res
-          .location('/news/' + news._id)
+          .location('/participants/' + participant._id)
           .status(HttpStatus.OK)
           .send();
       }),
