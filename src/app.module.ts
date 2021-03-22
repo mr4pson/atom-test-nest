@@ -1,3 +1,4 @@
+import { PartnerModule } from './partner/partner.module';
 import { FaqModule } from './faq/faq.module';
 import { TestModule } from './test/test.module';
 import { Module } from '@nestjs/common';
@@ -11,6 +12,7 @@ import { NewsModule } from './news/news.module';
 
 @Module({
   imports: [
+    PartnerModule,
     FaqModule,
     TestModule,
     ConfigModule.forRoot({ ignoreEnvFile: true }),
@@ -22,4 +24,4 @@ import { NewsModule } from './news/news.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
