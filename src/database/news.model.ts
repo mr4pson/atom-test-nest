@@ -1,5 +1,4 @@
 import { Document, Model, Schema, SchemaTypes } from 'mongoose';
-import { QuestionType } from '../shared/enum/QuestionType';
 
 interface News extends Document {
   readonly name: string;

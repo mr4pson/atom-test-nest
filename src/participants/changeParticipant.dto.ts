@@ -1,7 +1,7 @@
 import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ChangeNewsDto {
+export class ChangeParticipantDto {
   @IsNotEmpty()
   @ApiProperty({
     type: String,
@@ -14,7 +14,7 @@ export class ChangeNewsDto {
     type: String,
     required: true,
   })
-  readonly heading: string;
+  readonly city: string;
 
   @ApiProperty({
     type: String,
@@ -27,12 +27,12 @@ export class ChangeNewsDto {
     type: String,
     required: true,
   })
-  readonly description: string;
+  readonly number: string;
 
   @IsNotEmpty()
   @ApiProperty({
-    type: String,
+    type: Boolean,
     required: true,
   })
-  readonly status: string;
+  readonly visible: boolean;
 }

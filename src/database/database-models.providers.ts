@@ -4,11 +4,13 @@ import {
   ANSWER_MODEL,
   DATABASE_CONNECTION,
   NEWS_MODEL,
+  PARTICIPANT_MODEL,
   QUESTION_MODEL,
   QUESTION_OPTION_MODEL,
   USER_MODEL,
 } from './database.constants';
 import { News, NewsSchema } from './news.model';
+import { Participant } from './participant.model';
 import { Question, QuestionSchema } from './question.model';
 import { QuestionOption, QuestionOptionSchema } from './questionOption.model';
 import { userModelFn } from './user.model';
@@ -44,11 +46,13 @@ export const databaseModelsProviders = [
   {
     provide: NEWS_MODEL,
     useFactory: (connection: Connection) =>
-      connection.model<News>(
-        'News',
-        NewsSchema,
-        'news',
-      ),
+      connection.model<News>('News', NewsSchema, 'news'),
+    inject: [DATABASE_CONNECTION],
+  },
+  {
+    provide: PARTICIPANT_MODEL,
+    useFactory: (connection: Connection) =>
+      connection.model<Participant>('Participant', NewsSchema, 'participants'),
     inject: [DATABASE_CONNECTION],
   },
 ];
