@@ -33,7 +33,7 @@ export class ParticipantsService {
       this.participantModel.findOneAndUpdate({ _id: id }, { ...data }).exec(),
     ).pipe(
       throwIfEmpty(
-        () => new NotFoundException(`participant:$id was now found`),
+        () => new NotFoundException(`participant:$id was not found`),
       ),
     );
   }
@@ -43,7 +43,7 @@ export class ParticipantsService {
       this.participantModel.findOneAndDelete({ _id: id }).exec(),
     ).pipe(
       throwIfEmpty(
-        () => new NotFoundException(`participant:$id was now found`),
+        () => new NotFoundException(`participant:$id was not found`),
       ),
     );
   }

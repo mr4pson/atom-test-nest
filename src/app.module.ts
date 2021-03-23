@@ -10,6 +10,7 @@ import { DatabaseModule } from './database/database.module';
 import { UserModule } from './user/user.module';
 import { NewsModule } from './news/news.module';
 import { ParticipantsModule } from './participants/participants.module';
+import { CounterParametersModule } from './counterParameters/counterParameters.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ParticipantsModule } from './participants/participants.module';
     UserModule,
     NewsModule,
     ParticipantsModule,
+    CounterParametersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
