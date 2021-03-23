@@ -1,7 +1,12 @@
 import { Connection } from 'mongoose';
 import { Answer, AnswerSchema } from './answer.model';
 import {
+  CounterParameters,
+  CounterParametersSchema,
+} from './counters-parameters.model';
+import {
   ANSWER_MODEL,
+  COUNTER_PARAMETERS_MODEL,
   DATABASE_CONNECTION,
   FAQ_MODEL,
   NEWS_MODEL,
@@ -73,6 +78,16 @@ export const databaseModelsProviders = [
     provide: PARTNER_MODEL,
     useFactory: (connection: Connection) =>
       connection.model<Partner>('Partner', PartnerSchema, 'partners'),
+    inject: [DATABASE_CONNECTION],
+  },
+  {
+    provide: COUNTER_PARAMETERS_MODEL,
+    useFactory: (connection: Connection) =>
+      connection.model<CounterParameters>(
+        'CounterParameters',
+        CounterParametersSchema,
+        'counterParameters',
+      ),
     inject: [DATABASE_CONNECTION],
   },
 ];
