@@ -1,3 +1,4 @@
+import { StatisticsModule } from './statistics/statistics.module';
 import { PartnerModule } from './partner/partner.module';
 import { FaqModule } from './faq/faq.module';
 import { TestModule } from './test/test.module';
@@ -13,6 +14,7 @@ import { ParticipantsModule } from './participants/participants.module';
 
 @Module({
   imports: [
+    StatisticsModule,
     PartnerModule,
     FaqModule,
     TestModule,
