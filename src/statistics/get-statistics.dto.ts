@@ -1,18 +1,18 @@
-import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
 
-export class AnswerDto {
+export class GetStatisticsDto {
   @IsNotEmpty()
   @ApiProperty({
     type: String,
     required: true,
   })
-  readonly answers: string;
+  readonly dateFrom: string;
 
   @IsNotEmpty()
   @ApiProperty({
     type: String,
     required: true,
   })
-  readonly percentage: number;
+  readonly dateTo: string;
 }
