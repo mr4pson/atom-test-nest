@@ -30,6 +30,11 @@ export class NewsController {
     return this.newsService.findAll();
   }
 
+  @Get(':id')
+  getFaqById(@Param('id', ParseObjectIdPipe) id: string): Observable<any> {
+    return this.newsService.findById(id);
+  }
+
   @Post('')
   @HasRoles(RoleType.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
