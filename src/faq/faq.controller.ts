@@ -10,7 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { HasRoles } from 'src/auth/guard/has-roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guard/roles.guard';
@@ -36,13 +36,13 @@ export class FaqController {
   @Post('')
   @HasRoles(RoleType.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  createFaq(@Body() faq: ChangeFaqDto, @Res() res: any): Observable<Response> {
+  createFaq(@Body() faq: ChangeFaqDto, @Res() res: any): Observable<any> {
     return this.faqService.save(faq).pipe(
       map((faq) => {
         return res
           .location('/faqs/' + faq._id)
           .status(HttpStatus.CREATED)
-          .send();
+          .json(faq);
       }),
     );
   }
@@ -71,10 +71,13 @@ export class FaqController {
   deleteFaqById(
     @Param('id', ParseObjectIdPipe) id: string,
     @Res() res: any,
-  ): Observable<Response> {
+  ): Observable<Faq[]> {
     return this.faqService.deleteById(id).pipe(
-      map(() => {
-        return res.status(HttpStatus.NO_CONTENT).send();
+      switchMap(() => {
+        return this.faqService.findAll();
+      }),
+      map((faqs) => {
+        return res.status(HttpStatus.OK).json(faqs);
       }),
     );
   }

@@ -2,8 +2,8 @@ import { Inject, NotFoundException } from '@nestjs/common';
 import { Injectable, Scope } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { Model } from 'mongoose';
-import { from, Observable } from 'rxjs';
-import { throwIfEmpty } from 'rxjs/operators';
+import { EMPTY, from, Observable, of } from 'rxjs';
+import { mergeMap, throwIfEmpty } from 'rxjs/operators';
 import { AuthenticatedRequest } from 'src/auth/interface/authenticated-request.interface';
 import { CounterParameters } from 'src/database/counters-parameters.model';
 import { COUNTER_PARAMETERS_MODEL } from 'src/database/database.constants';
@@ -18,6 +18,17 @@ export class CounterParametersService {
     @Inject(REQUEST) private req: AuthenticatedRequest,
   ) {}
 
+  findByType(type: counterParametersType): Observable<CounterParameters> {
+    return from(
+      this.counterParametersModel.findOne({ type: type }).exec(),
+    ).pipe(
+      mergeMap((p) => (p ? of(p) : EMPTY)),
+      throwIfEmpty(
+        () => new NotFoundException(`counterParams:$id was not found`),
+      ),
+    );
+  }
+
   update(
     data: ChangeCounterParametersDto,
     type: counterParametersType,
@@ -28,6 +39,10 @@ export class CounterParametersService {
       this.counterParametersModel
         .findOneAndUpdate({ type }, { ...data })
         .exec(),
-    ).pipe(throwIfEmpty(() => new NotFoundException(`news:$id was not found`)));
+    ).pipe(
+      throwIfEmpty(
+        () => new NotFoundException(`counterParams:$id was not found`),
+      ),
+    );
   }
 }

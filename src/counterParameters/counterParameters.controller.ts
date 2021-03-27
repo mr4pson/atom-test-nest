@@ -25,6 +25,12 @@ import { CounterParametersService } from './counterParameters.service';
 @Controller({ path: 'counter-parameters', scope: Scope.REQUEST })
 export class CounterParametersController {
   constructor(private counterParametersService: CounterParametersService) {}
+  @Get(':type')
+  getBannerParameters(
+    @Param('type') type: counterParametersType,
+  ): Observable<any> {
+    return this.counterParametersService.findByType(type);
+  }
 
   @Put(':type')
   @HasRoles(RoleType.ADMIN)
