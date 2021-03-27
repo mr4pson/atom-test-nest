@@ -2,8 +2,8 @@ import { Inject, NotFoundException } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { Model } from 'mongoose';
-import { from, Observable, of } from 'rxjs';
-import { mergeMap, throwIfEmpty } from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
+import { throwIfEmpty } from 'rxjs/operators';
 import { AuthenticatedRequest } from 'src/auth/interface/authenticated-request.interface';
 import { QUESTION_MODEL } from 'src/database/database.constants';
 import { Question } from 'src/database/question.model';
@@ -16,8 +16,13 @@ export class QuestionService {
     @Inject(QUESTION_MODEL) private questionModel: Model<Question>,
     @Inject(REQUEST) private req: AuthenticatedRequest,
   ) {}
+
   findAll(): Observable<Question[]> {
     return from(this.questionModel.find().populate('options').exec());
+  }
+
+  find(id: string): Observable<Question> {
+    return from(this.questionModel.findById(id).populate('options').exec());
   }
 
   save(data: ChangeQuestionDto): Observable<Question> {
@@ -26,6 +31,7 @@ export class QuestionService {
     });
     return from(createQuestion);
   }
+
   update(id: string, data: UpdateQuestionDto): Observable<Question> {
     return from(
       this.questionModel.findOneAndUpdate({ _id: id }, { ...data }).exec(),

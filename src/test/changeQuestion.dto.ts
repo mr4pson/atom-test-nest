@@ -3,7 +3,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { QuestionType } from '../shared/enum/QuestionType';
 
 export class ChangeQuestionDto {
-  @IsNotEmpty()
   @ApiProperty({
     type: String,
     required: true,
@@ -17,7 +16,6 @@ export class ChangeQuestionDto {
   })
   readonly title: string;
 
-  @IsNotEmpty()
   @ApiProperty({
     type: String,
     required: false,
