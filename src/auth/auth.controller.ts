@@ -1,4 +1,5 @@
 import { Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,6 +11,7 @@ import { AuthenticatedRequest } from './interface/authenticated-request.interfac
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @ApiTags('auth')
   @UseGuards(LocalAuthGuard)
   @Post('login')
   login(

@@ -11,6 +11,7 @@ import {
   Scope,
   UseGuards,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { HasRoles } from 'src/auth/guard/has-roles.decorator';
@@ -23,6 +24,7 @@ import { ChangeQuestionDto } from './changeQuestion.dto';
 import { QuestionService } from './question.service';
 import { QuestionOptionService } from './questionOption.service';
 
+@ApiTags('questions')
 @Controller({ path: 'questions', scope: Scope.REQUEST })
 export class QuestionController {
   constructor(

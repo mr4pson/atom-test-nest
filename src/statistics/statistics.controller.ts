@@ -8,6 +8,7 @@ import {
   Scope,
   UseGuards,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HasRoles } from 'src/auth/guard/has-roles.decorator';
@@ -24,6 +25,7 @@ import { GetStatisticsDto } from './get-statistics.dto';
 import { StatisticsService } from './statistics.service';
 import { parseRussianDate } from './utils';
 
+@ApiTags('statistics')
 @Controller({ path: 'statistics', scope: Scope.REQUEST })
 export class StatisticsController {
   constructor(private statisticsService: StatisticsService) {}

@@ -9,7 +9,9 @@ import { User } from '../database/user.model';
 import { Observable } from 'rxjs';
 import { ParseObjectIdPipe } from '../shared/pipe/parse-object-id.pipe';
 import { UserService } from './user.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users')
 @Controller({ path: '/users' })
 export class UserController {
   constructor(private userService: UserService) {}

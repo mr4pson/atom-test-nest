@@ -11,6 +11,7 @@ import {
   HttpStatus,
   Param,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HasRoles } from 'src/auth/guard/has-roles.decorator';
@@ -21,6 +22,7 @@ import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { ChangeNewsDto } from './changeNews.dto';
 import { NewsService } from './news.service';
 
+@ApiTags('news')
 @Controller({ path: 'news', scope: Scope.REQUEST })
 export class NewsController {
   constructor(private newsService: NewsService) {}
