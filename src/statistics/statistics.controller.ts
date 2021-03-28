@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Scope, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Query,
+  Req,
+  Scope,
+  UseGuards,
+} from '@nestjs/common';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HasRoles } from 'src/auth/guard/has-roles.decorator';
@@ -13,6 +22,7 @@ import {
 } from './constants';
 import { GetStatisticsDto } from './get-statistics.dto';
 import { StatisticsService } from './statistics.service';
+import { parseRussianDate } from './utils';
 
 @Controller({ path: 'statistics', scope: Scope.REQUEST })
 export class StatisticsController {
@@ -20,11 +30,11 @@ export class StatisticsController {
   @Get('/registered-users')
   @HasRoles(RoleType.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  getRegisteredUsers(@Body() body: GetStatisticsDto): Observable<any> {
+  getRegisteredUsers(@Query() query): Observable<any> {
     return forkJoin([
       this.statisticsService.getUserStatsGroupedByMonthAndYear(
-        body.dateFrom,
-        body.dateTo,
+        query.dateFrom,
+        query.dateTo,
       ),
       this.statisticsService.getUserNumber(lastWeekDateFrom, currentDate),
       this.statisticsService.getUserNumber(lastMonthDateFrom, currentDate),
@@ -42,12 +52,15 @@ export class StatisticsController {
   @Get('/passed-dictation')
   @HasRoles(RoleType.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  getPassedDictation(@Body() body: GetStatisticsDto): Observable<any> {
+  getPassedDictation(@Query() query: GetStatisticsDto): Observable<any> {
     return forkJoin([
-      this.statisticsService.getPassedDictation(body.dateFrom, body.dateTo),
+      this.statisticsService.getPassedDictation(
+        parseRussianDate(query.dateFrom).toISOString(),
+        parseRussianDate(query.dateTo).toISOString(),
+      ),
       this.statisticsService.getRegisteredUsersByDates(
-        body.dateFrom,
-        body.dateTo,
+        parseRussianDate(query.dateFrom).toISOString(),
+        parseRussianDate(query.dateTo).toISOString(),
       ),
       this.statisticsService.getPassedDictation(lastWeekDateFrom, currentDate),
       this.statisticsService.getPassedDictation(lastMonthDateFrom, currentDate),

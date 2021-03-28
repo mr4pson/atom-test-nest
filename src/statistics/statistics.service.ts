@@ -6,6 +6,7 @@ import { map, tap } from 'rxjs/operators';
 import { Answer } from 'src/database/answer.model';
 import { User } from 'src/database/user.model';
 import { ANSWER_MODEL, USER_MODEL } from '../database/database.constants';
+import { parseRussianDate } from './utils';
 
 @Injectable()
 export class StatisticsService {
@@ -20,8 +21,8 @@ export class StatisticsService {
           {
             $match: {
               createdAt: {
-                $gte: new Date(dateFrom),
-                $lte: new Date(dateTo),
+                $gte: parseRussianDate(dateFrom),
+                $lte: parseRussianDate(dateTo),
               },
             },
           },
