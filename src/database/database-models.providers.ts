@@ -1,11 +1,13 @@
 import { Connection } from 'mongoose';
 import { Answer, AnswerSchema } from './answer.model';
+import { IAttachment, IAttachmentSchema } from './attachment.model';
 import {
   CounterParameters,
   CounterParametersSchema,
 } from './counters-parameters.model';
 import {
   ANSWER_MODEL,
+  ATTACHMENT_MODEL,
   COUNTER_PARAMETERS_MODEL,
   DATABASE_CONNECTION,
   FAQ_MODEL,
@@ -87,6 +89,16 @@ export const databaseModelsProviders = [
         'CounterParameters',
         CounterParametersSchema,
         'counterParameters',
+      ),
+    inject: [DATABASE_CONNECTION],
+  },
+  {
+    provide: ATTACHMENT_MODEL,
+    useFactory: (connection: Connection) =>
+      connection.model<IAttachment>(
+        'IAttachment',
+        IAttachmentSchema,
+        'attachments',
       ),
     inject: [DATABASE_CONNECTION],
   },

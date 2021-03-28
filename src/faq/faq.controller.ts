@@ -9,6 +9,7 @@ import {
   Scope,
   UseGuards,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { HasRoles } from 'src/auth/guard/has-roles.decorator';
@@ -20,6 +21,7 @@ import { ParseObjectIdPipe } from 'src/shared/pipe/parse-object-id.pipe';
 import { ChangeFaqDto } from './changeFaq.dto';
 import { FaqService } from './faq.service';
 
+@ApiTags('faq')
 @Controller({ path: 'faqs', scope: Scope.REQUEST })
 export class FaqController {
   constructor(private faqService: FaqService) {}

@@ -1,3 +1,4 @@
+import { AttachmentModule } from './attachment/attachment.module';
 import { StatisticsModule } from './statistics/statistics.module';
 import { PartnerModule } from './partner/partner.module';
 import { FaqModule } from './faq/faq.module';
@@ -15,6 +16,7 @@ import { CounterParametersModule } from './counterParameters/counterParameters.m
 
 @Module({
   imports: [
+    AttachmentModule,
     StatisticsModule,
     PartnerModule,
     FaqModule,

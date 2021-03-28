@@ -1,27 +1,26 @@
 import {
   Get,
-  Post,
   Body,
   Res,
   UseGuards,
   Scope,
   Controller,
-  Delete,
   Put,
   HttpStatus,
   Param,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HasRoles } from 'src/auth/guard/has-roles.decorator';
-import { RolesGuard } from 'src/auth/guard/roles.guard';
-import { counterParametersType } from 'src/shared/enum/counterParametersType';
-import { RoleType } from 'src/shared/enum/role-type.enum';
-import { ParseObjectIdPipe } from 'src/shared/pipe/parse-object-id.pipe';
+import { HasRoles } from '../auth/guard/has-roles.decorator';
+import { RolesGuard } from '../auth/guard/roles.guard';
+import { counterParametersType } from '../shared/enum/counterParametersType';
+import { RoleType } from '../shared/enum/role-type.enum';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { ChangeCounterParametersDto } from './changeCounterParameters.dto';
 import { CounterParametersService } from './counterParameters.service';
 
+@ApiTags('counter-parameters')
 @Controller({ path: 'counter-parameters', scope: Scope.REQUEST })
 export class CounterParametersController {
   constructor(private counterParametersService: CounterParametersService) {}

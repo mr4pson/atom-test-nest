@@ -6,12 +6,14 @@ import {
   Post,
   Res,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { Observable } from 'rxjs';
 import { mergeMap, map } from 'rxjs/operators';
 import { RegisterDto } from './register.dto';
 import { UserService } from './user.service';
 
+@ApiTags('register')
 @Controller('register')
 export class RegisterController {
   constructor(private userService: UserService) {}

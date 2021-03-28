@@ -9,7 +9,7 @@ import { CounterParametersService } from './counterParameters.service';
   controllers: [CounterParametersController],
   providers: [
     CounterParametersService,
-    CounterParametersDataInitializerService,
+    // CounterParametersDataInitializerService,
   ],
 })
 export class CounterParametersModule {}

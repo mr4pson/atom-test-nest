@@ -11,6 +11,7 @@ import {
   HttpStatus,
   Param,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HasRoles } from 'src/auth/guard/has-roles.decorator';
@@ -21,6 +22,7 @@ import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { ChangeParticipantDto } from './changeParticipant.dto';
 import { ParticipantsService } from './participants.service';
 
+@ApiTags('participants')
 @Controller({ path: 'participants', scope: Scope.REQUEST })
 export class ParticipantsController {
   constructor(private participantsService: ParticipantsService) {}
