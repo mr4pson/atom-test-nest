@@ -32,6 +32,11 @@ export class ParticipantsController {
     return this.participantsService.findAll();
   }
 
+  @Get(':id')
+  getFaqById(@Param('id', ParseObjectIdPipe) id: string): Observable<any> {
+    return this.participantsService.findById(id);
+  }
+
   @Post('')
   @HasRoles(RoleType.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)

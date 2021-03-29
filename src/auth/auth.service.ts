@@ -61,7 +61,6 @@ export class AuthService {
       roles: user.roles,
       fullName: user.fullName,
     };
-    console.log(payload);
     return from(this.jwtService.signAsync(payload)).pipe(
       map((access_token) => {
         return { access_token };
