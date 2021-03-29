@@ -1,8 +1,8 @@
 import { Inject, Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { Model } from 'mongoose';
-import { from, Observable } from 'rxjs';
-import { throwIfEmpty } from 'rxjs/operators';
+import { EMPTY, from, Observable, of } from 'rxjs';
+import { mergeMap, throwIfEmpty } from 'rxjs/operators';
 import { AuthenticatedRequest } from 'src/auth/interface/authenticated-request.interface';
 import { PARTICIPANT_MODEL } from 'src/database/database.constants';
 import { Participant } from 'src/database/participant.model';
@@ -17,6 +17,15 @@ export class ParticipantsService {
 
   findAll(): Observable<Participant[]> {
     return from(this.participantModel.find().exec());
+  }
+
+  findById(id: string): Observable<Participant> {
+    return from(this.participantModel.findOne({ _id: id }).exec()).pipe(
+      mergeMap((p) => (p ? of(p) : EMPTY)),
+      throwIfEmpty(
+        () => new NotFoundException(`participant:$id was not found`),
+      ),
+    );
   }
 
   save(data: ChangeParticipantDto): Observable<Participant> {
