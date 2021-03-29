@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { EMPTY, from, Observable, of } from 'rxjs';
 import { mergeMap, map, throwIfEmpty } from 'rxjs/operators';
+import { User } from 'src/database/user.model';
 import { UserService } from '../user/user.service';
 import { AccessToken } from './interface/access-token.interface';
 import { JwtPayload } from './interface/jwt-payload.interface';
@@ -52,13 +53,15 @@ export class AuthService {
   // I would like use the current `Promise` for this case, thus it will get
   // a `UserPrincipal` here directly.
   //
-  login(user: UserPrincipal): Observable<AccessToken> {
+  login(user: User): Observable<AccessToken> {
     const payload: JwtPayload = {
       upn: user.username, //upn is defined in Microprofile JWT spec, a human readable principal name.
       sub: user.id,
       email: user.email,
       roles: user.roles,
+      fullName: user.fullName,
     };
+    console.log(payload);
     return from(this.jwtService.signAsync(payload)).pipe(
       map((access_token) => {
         return { access_token };
