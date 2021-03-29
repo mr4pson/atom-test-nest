@@ -5,4 +5,5 @@ export interface UserPrincipal {
   readonly id: string;
   readonly email: string;
   readonly roles: RoleType[];
+  readonly fullName: string;
 }

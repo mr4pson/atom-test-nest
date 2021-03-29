@@ -5,4 +5,5 @@ export interface JwtPayload {
   readonly sub: string;
   readonly email: string;
   readonly roles: RoleType[];
+  readonly fullName: string;
 }
