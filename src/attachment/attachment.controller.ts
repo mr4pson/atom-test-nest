@@ -20,11 +20,8 @@ import {
   ApiConsumes,
   ApiCreatedResponse,
   ApiForbiddenResponse,
-  ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { createReadStream, createWriteStream, readFile } from 'fs';
-import { AuthUser } from 'src/auth/decorators/auth-user.decorator';
 import { AbstractAttachmentService } from './abstract-attachment.service';
 import { MulterUtils } from './multer-utils.service';
 import { UploadTypesEnum } from './upload-types.enum';
@@ -72,10 +69,7 @@ export class AttachmentController {
   )
   @ApiBearerAuth()
   // @UseGuards(AuthGuard)
-  uploadAttachments(
-    // @AuthUser('_id') authUserId: string,
-    @UploadedFiles() files: any[],
-  ) {
+  uploadAttachments(@UploadedFiles() files: any[]) {
     console.log(files);
     return this.attachmentService.addAttachments(files, 'authUserId');
   }
