@@ -48,7 +48,6 @@ export class RegisterDto {
   })
   readonly city: string;
 
-  @IsNotEmpty()
   @ApiProperty({
     type: String,
     required: true,
@@ -62,7 +61,6 @@ export class RegisterDto {
   })
   readonly phone: string;
 
-  @IsNotEmpty()
   @ApiProperty({
     type: String,
     required: false,
