@@ -1,5 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Subcategory } from 'src/database/subcategory.model';
 
 export class ChangeMenuDto {
   @IsNotEmpty()
@@ -35,4 +36,11 @@ export class ChangeMenuDto {
     required: true,
   })
   readonly deletable: boolean;
+
+  @IsNotEmpty()
+  @ApiProperty({
+    type: String,
+    required: true,
+  })
+  readonly subcategories: string[];
 }
