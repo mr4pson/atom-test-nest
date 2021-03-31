@@ -12,7 +12,6 @@ import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './database/database.module';
 import { UserModule } from './user/user.module';
 import { NewsModule } from './news/news.module';
-import { ParticipantsModule } from './participants/participants.module';
 import { CounterParametersModule } from './counterParameters/counterParameters.module';
 
 @Module({
@@ -28,7 +27,6 @@ import { CounterParametersModule } from './counterParameters/counterParameters.m
     AuthModule,
     UserModule,
     NewsModule,
-    ParticipantsModule,
     CounterParametersModule,
   ],
   controllers: [AppController],

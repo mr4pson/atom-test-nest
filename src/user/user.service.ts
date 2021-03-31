@@ -1,17 +1,28 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { EMPTY, from, Observable, of, throwError } from 'rxjs';
-import { mergeMap, tap, throwIfEmpty, catchError } from 'rxjs/operators';
+import { mergeMap, throwIfEmpty, catchError, map } from 'rxjs/operators';
 import { RoleType } from '../shared/enum/role-type.enum';
 import { USER_MODEL } from '../database/database.constants';
 import { User, UserModel } from '../database/user.model';
 // import { SendgridService } from '../sendgrid/sendgrid.service';
 import { RegisterDto } from './register.dto';
+import { UserDto } from './user.dto';
 
 @Injectable()
 export class UserService {
   constructor(
     @Inject(USER_MODEL) private userModel: UserModel, // private sendgridService: SendgridService
   ) {}
+
+  findAll(): Observable<User[]> {
+    return from(this.userModel.find().exec()).pipe(
+      map((users) =>
+        users.filter((user) => {
+          return user.roles.includes(RoleType.USER);
+        }),
+      ),
+    );
+  }
 
   findByUsername(username: string): Observable<User> {
     return from(this.userModel.findOne({ username }).exec());
@@ -95,6 +106,20 @@ export class UserService {
     return from(userQuery.exec()).pipe(
       mergeMap((p) => (p ? of(p) : EMPTY)),
       throwIfEmpty(() => new NotFoundException(`user:${id} was not found`)),
+    );
+  }
+
+  update(id: string, data: UserDto): Observable<User> {
+    return from(
+      this.userModel.findOneAndUpdate({ _id: id }, { ...data }).exec(),
+    ).pipe(
+      throwIfEmpty(() => new NotFoundException(`user:${id} was not found`)),
+    );
+  }
+
+  delete(id: string): Observable<User> {
+    return from(this.userModel.findByIdAndDelete(id).exec()).pipe(
+      throwIfEmpty(() => new NotFoundException(`uesr:${id} was not found`)),
     );
   }
 }

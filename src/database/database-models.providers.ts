@@ -13,7 +13,6 @@ import {
   FAQ_MODEL,
   MENU_MODEL,
   NEWS_MODEL,
-  PARTICIPANT_MODEL,
   PARTNER_MODEL,
   QUESTION_MODEL,
   QUESTION_OPTION_MODEL,
@@ -22,7 +21,6 @@ import {
 import { Faq, FaqSchema } from './faq.model';
 import { Menu, MenuSchema } from './menu.model';
 import { News, NewsSchema } from './news.model';
-import { Participant, ParticipantSchema } from './participant.model';
 import { Partner, PartnerSchema } from './partner.model';
 import { Question, QuestionSchema } from './question.model';
 import { QuestionOption, QuestionOptionSchema } from './questionOption.model';
@@ -60,16 +58,6 @@ export const databaseModelsProviders = [
     provide: NEWS_MODEL,
     useFactory: (connection: Connection) =>
       connection.model<News>('News', NewsSchema, 'news'),
-    inject: [DATABASE_CONNECTION],
-  },
-  {
-    provide: PARTICIPANT_MODEL,
-    useFactory: (connection: Connection) =>
-      connection.model<Participant>(
-        'Participant',
-        ParticipantSchema,
-        'participants',
-      ),
     inject: [DATABASE_CONNECTION],
   },
   {
