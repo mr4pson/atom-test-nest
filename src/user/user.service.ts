@@ -6,6 +6,7 @@ import { USER_MODEL } from '../database/database.constants';
 import { User, UserModel } from '../database/user.model';
 // import { SendgridService } from '../sendgrid/sendgrid.service';
 import { RegisterDto } from './register.dto';
+import { UserDto } from './user.dto';
 
 @Injectable()
 export class UserService {
@@ -104,6 +105,14 @@ export class UserService {
     });
     return from(userQuery.exec()).pipe(
       mergeMap((p) => (p ? of(p) : EMPTY)),
+      throwIfEmpty(() => new NotFoundException(`user:${id} was not found`)),
+    );
+  }
+
+  update(id: string, data: UserDto): Observable<User> {
+    return from(
+      this.userModel.findOneAndUpdate({ _id: id }, { ...data }).exec(),
+    ).pipe(
       throwIfEmpty(() => new NotFoundException(`user:${id} was not found`)),
     );
   }
