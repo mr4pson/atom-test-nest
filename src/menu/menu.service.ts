@@ -14,8 +14,10 @@ export class MenuService {
     return from(this.menuModel.find().exec());
   }
 
-  findById(id: string): Observable<Menu> {
-    return from(this.menuModel.findOne({ _id: id }).exec()).pipe(
+  findById(id: Partial<Menu> | string): Observable<Menu> {
+    return from(
+      this.menuModel.findOne({ _id: id }).populate('subcategories').exec(),
+    ).pipe(
       mergeMap((p) => (p ? of(p) : EMPTY)),
       throwIfEmpty(() => new NotFoundException(`menu:$id was not found`)),
     );

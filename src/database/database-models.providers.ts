@@ -16,6 +16,7 @@ import {
   PARTNER_MODEL,
   QUESTION_MODEL,
   QUESTION_OPTION_MODEL,
+  SUBCATEGORY_MODEL,
   USER_MODEL,
 } from './database.constants';
 import { Faq, FaqSchema } from './faq.model';
@@ -24,6 +25,7 @@ import { News, NewsSchema } from './news.model';
 import { Partner, PartnerSchema } from './partner.model';
 import { Question, QuestionSchema } from './question.model';
 import { QuestionOption, QuestionOptionSchema } from './questionOption.model';
+import { Subcategory, SubcategorySchema } from './subcategory.model';
 import { userModelFn } from './user.model';
 
 export const databaseModelsProviders = [
@@ -96,6 +98,16 @@ export const databaseModelsProviders = [
     provide: MENU_MODEL,
     useFactory: (connection: Connection) =>
       connection.model<Menu>('Menu', MenuSchema, 'menus'),
+    inject: [DATABASE_CONNECTION],
+  },
+  {
+    provide: SUBCATEGORY_MODEL,
+    useFactory: (connection: Connection) =>
+      connection.model<Subcategory>(
+        'Subcategory',
+        SubcategorySchema,
+        'subcategories',
+      ),
     inject: [DATABASE_CONNECTION],
   },
 ];

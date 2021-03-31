@@ -6,6 +6,7 @@ interface Menu extends Document {
   readonly visible: boolean;
   readonly editable: boolean;
   readonly deletable: boolean;
+  readonly subcategories: Partial<string[]>;
 }
 
 type MenuModel = Model<Menu>;
@@ -17,6 +18,9 @@ const MenuSchema = new Schema(
     visible: SchemaTypes.Boolean,
     editable: SchemaTypes.Boolean,
     deletable: SchemaTypes.Boolean,
+    subcategories: {
+      type: [{ type: SchemaTypes.ObjectId, ref: 'Subcategory' }],
+    },
   },
   {
     timestamps: true,
