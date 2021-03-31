@@ -1,10 +1,12 @@
 import {
+  Body,
   Controller,
   DefaultValuePipe,
   Delete,
   Get,
   HttpStatus,
   Param,
+  Put,
   Query,
   Res,
   UseGuards,
@@ -19,6 +21,7 @@ import { RoleType } from 'src/shared/enum/role-type.enum';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guard/roles.guard';
 import { map } from 'rxjs/operators';
+import { UserDto } from './user.dto';
 
 @ApiTags('users')
 @Controller({ path: '/users' })
@@ -38,6 +41,24 @@ export class UserController {
     return this.userService.findById(id, withPosts);
   }
 
+  @Put(':id')
+  @HasRoles(RoleType.USER)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  updateNews(
+    @Param('id', ParseObjectIdPipe) id: string,
+    @Body() user: UserDto,
+    @Res() res: any,
+  ): Observable<any> {
+    return this.userService.update(id, user).pipe(
+      map((user) => {
+        return res
+          .location('/users/' + user._id)
+          .status(HttpStatus.OK)
+          .send();
+      }),
+    );
+  }
+
   @Delete(':id')
   @HasRoles(RoleType.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -48,7 +69,7 @@ export class UserController {
     return this.userService.delete(id).pipe(
       map((user) => {
         return res
-          .location('/news/' + user._id)
+          .location('/users/' + user._id)
           .status(HttpStatus.OK)
           .send();
       }),
