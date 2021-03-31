@@ -10,13 +10,6 @@ export class ChangeNewsDto {
   })
   readonly name: string;
 
-  @IsNotEmpty()
-  @ApiProperty({
-    type: String,
-    required: true,
-  })
-  readonly heading: string;
-
   @ApiProperty({
     type: String,
     required: true,
