@@ -11,6 +11,7 @@ import {
   COUNTER_PARAMETERS_MODEL,
   DATABASE_CONNECTION,
   FAQ_MODEL,
+  MENU_MODEL,
   NEWS_MODEL,
   PARTICIPANT_MODEL,
   PARTNER_MODEL,
@@ -19,6 +20,7 @@ import {
   USER_MODEL,
 } from './database.constants';
 import { Faq, FaqSchema } from './faq.model';
+import { Menu, MenuSchema } from './menu.model';
 import { News, NewsSchema } from './news.model';
 import { Participant, ParticipantSchema } from './participant.model';
 import { Partner, PartnerSchema } from './partner.model';
@@ -100,6 +102,12 @@ export const databaseModelsProviders = [
         IAttachmentSchema,
         'attachments',
       ),
+    inject: [DATABASE_CONNECTION],
+  },
+  {
+    provide: MENU_MODEL,
+    useFactory: (connection: Connection) =>
+      connection.model<Menu>('Menu', MenuSchema, 'menus'),
     inject: [DATABASE_CONNECTION],
   },
 ];
