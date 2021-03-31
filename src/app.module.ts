@@ -1,3 +1,4 @@
+import { MenuModule } from './menu/menu.module';
 import { AttachmentModule } from './attachment/attachment.module';
 import { StatisticsModule } from './statistics/statistics.module';
 import { PartnerModule } from './partner/partner.module';
@@ -15,6 +16,7 @@ import { CounterParametersModule } from './counterParameters/counterParameters.m
 
 @Module({
   imports: [
+    MenuModule,
     AttachmentModule,
     StatisticsModule,
     PartnerModule,
@@ -30,4 +32,4 @@ import { CounterParametersModule } from './counterParameters/counterParameters.m
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
