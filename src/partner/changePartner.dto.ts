@@ -16,6 +16,13 @@ export class ChangePartnerDto {
   })
   readonly link: string;
 
+  @IsNotEmpty()
+  @ApiProperty({
+    type: String,
+    required: true,
+  })
+  readonly massMedia: string;
+
   @ApiProperty({
     type: String,
     required: true,
