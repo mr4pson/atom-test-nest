@@ -17,11 +17,13 @@ export class NewsService {
   ) {}
 
   findAll(): Observable<News[]> {
-    return from(this.newsModel.find().exec());
+    return from(this.newsModel.find().populate('subcategory').exec());
   }
 
   findById(id: string): Observable<News> {
-    return from(this.newsModel.findOne({ _id: id }).exec()).pipe(
+    return from(
+      this.newsModel.findOne({ _id: id }).populate('subcategory').exec(),
+    ).pipe(
       mergeMap((p) => (p ? of(p) : EMPTY)),
       throwIfEmpty(() => new NotFoundException(`faq:$id was not found`)),
     );
