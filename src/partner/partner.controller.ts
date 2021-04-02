@@ -22,6 +22,7 @@ import { Get } from '@nestjs/common';
 import { Partner } from '../database/partner.model';
 import { ParseObjectIdPipe } from '../shared/pipe/parse-object-id.pipe';
 import { ApiTags } from '@nestjs/swagger';
+import { OrganizationType } from 'src/database/organization-type.model';
 
 @ApiTags('partners')
 @Controller({ path: 'partners', scope: Scope.REQUEST })
@@ -38,6 +39,13 @@ export class PartnerController {
     @Param('id', ParseObjectIdPipe) id: string,
   ): Observable<Partner> {
     return this.partnerService.findById(id);
+  }
+
+  @Get('byOrganizationType/:id')
+  getPartnersByOrganizationType(
+    @Param('id', ParseObjectIdPipe) id: Partial<OrganizationType>,
+  ): Observable<Partner[]> {
+    return this.partnerService.findByOrganizationType(id);
   }
 
   @Post('')

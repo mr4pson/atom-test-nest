@@ -33,7 +33,7 @@ export class AttachmentController {
 
   @Get(':fileName')
   @HttpCode(HttpStatus.OK)
-  @Header('Content-Type', 'image/jpeg')
+  @Header('Content-Type', 'image/png')
   seeUploadedFile(@Param('fileName') fileName, @Res() res) {
     return res.sendFile(fileName, { root: './upload' });
   }

@@ -1,4 +1,5 @@
 import { Document, Model, Schema, SchemaTypes } from 'mongoose';
+import { OrganizationType } from './organization-type.model';
 
 interface Partner extends Document {
   readonly title: string;
@@ -7,6 +8,7 @@ interface Partner extends Document {
   readonly uploadFile: string;
   readonly description: string;
   readonly visible: boolean;
+  readonly organizationType: Partial<OrganizationType>;
 }
 
 type PartnerModel = Model<Partner>;
@@ -19,6 +21,11 @@ const PartnerSchema = new Schema(
     uploadFile: SchemaTypes.String,
     description: SchemaTypes.String,
     visible: SchemaTypes.Boolean,
+    organizationType: {
+      type: SchemaTypes.ObjectId,
+      ref: 'OrganizationType',
+      required: false,
+    },
   },
   {
     timestamps: true,
