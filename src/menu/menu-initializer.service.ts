@@ -12,7 +12,7 @@ export class MenuInitializerService implements OnModuleInit {
     await this.menuModel.deleteMany({});
     const partners = {
       title: 'Информационные партнеры',
-      url: 'partners',
+      url: 'our-partners',
       visible: true,
       editable: false,
       deletable: false,
@@ -25,9 +25,28 @@ export class MenuInitializerService implements OnModuleInit {
       editable: false,
       deletable: false,
     };
+
+    const about = {
+      title: 'О проекте',
+      url: '/#about',
+      visible: true,
+      editable: false,
+      deletable: false,
+    };
+
+    const organizators = {
+      title: 'Организаторы',
+      url: '/#organizators',
+      visible: true,
+      editable: false,
+      deletable: false,
+    };
+
     await Promise.all([
-      this.menuModel.create(partners),
+      this.menuModel.create(about),
       this.menuModel.create(projectPersons),
+      this.menuModel.create(organizators),
+      this.menuModel.create(partners),
     ]).then((data) => console.log(data));
   }
 }
