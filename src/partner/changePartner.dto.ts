@@ -1,5 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { OrganizationType } from 'src/database/organization-type.model';
 
 export class ChangePartnerDto {
   @IsNotEmpty()
@@ -21,7 +22,7 @@ export class ChangePartnerDto {
     type: String,
     required: true,
   })
-  readonly massMedia: string;
+  readonly organizationType: OrganizationType;
 
   @ApiProperty({
     type: String,

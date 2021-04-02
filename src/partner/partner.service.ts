@@ -7,6 +7,7 @@ import { EMPTY, from, Observable, of } from 'rxjs';
 import { ChangePartnerDto } from './changePartner.dto';
 import { PARTNER_MODEL } from 'src/database/database.constants';
 import { mergeMap, throwIfEmpty } from 'rxjs/operators';
+import { OrganizationType } from 'src/database/organization-type.model';
 
 @Injectable()
 export class PartnerService {
@@ -16,11 +17,28 @@ export class PartnerService {
   ) {}
 
   findAll(): Observable<Partner[]> {
-    return from(this.partnerModel.find().exec());
+    return from(this.partnerModel.find().populate('organizationType').exec());
   }
 
   findById(id: string): Observable<Partner> {
-    return from(this.partnerModel.findOne({ _id: id }).exec()).pipe(
+    return from(
+      this.partnerModel
+        .findOne({ _id: id })
+        .populate('organizationType')
+        .exec(),
+    ).pipe(
+      mergeMap((p) => (p ? of(p) : EMPTY)),
+      throwIfEmpty(() => new NotFoundException(`partner:$id was not found`)),
+    );
+  }
+
+  findByOrganizationType(id: Partial<OrganizationType>): Observable<Partner[]> {
+    return from(
+      this.partnerModel
+        .find({ organizationType: id })
+        .populate('organizationType')
+        .exec(),
+    ).pipe(
       mergeMap((p) => (p ? of(p) : EMPTY)),
       throwIfEmpty(() => new NotFoundException(`partner:$id was not found`)),
     );

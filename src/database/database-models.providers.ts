@@ -13,6 +13,7 @@ import {
   FAQ_MODEL,
   MENU_MODEL,
   NEWS_MODEL,
+  ORGANIZATION_TYPE_MODEL,
   PARTNER_MODEL,
   QUESTION_MODEL,
   QUESTION_OPTION_MODEL,
@@ -22,6 +23,10 @@ import {
 import { Faq, FaqSchema } from './faq.model';
 import { Menu, MenuSchema } from './menu.model';
 import { News, NewsSchema } from './news.model';
+import {
+  OrganizationType,
+  OrganizationTypeSchema,
+} from './organization-type.model';
 import { Partner, PartnerSchema } from './partner.model';
 import { Question, QuestionSchema } from './question.model';
 import { QuestionOption, QuestionOptionSchema } from './questionOption.model';
@@ -107,6 +112,16 @@ export const databaseModelsProviders = [
         'Subcategory',
         SubcategorySchema,
         'subcategories',
+      ),
+    inject: [DATABASE_CONNECTION],
+  },
+  {
+    provide: ORGANIZATION_TYPE_MODEL,
+    useFactory: (connection: Connection) =>
+      connection.model<OrganizationType>(
+        'OrganizationType',
+        OrganizationTypeSchema,
+        'organizationTypes',
       ),
     inject: [DATABASE_CONNECTION],
   },
