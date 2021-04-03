@@ -18,14 +18,6 @@ export class MenuInitializerService implements OnModuleInit {
       deletable: false,
     };
 
-    const projectPersons = {
-      title: 'Лица проекта',
-      url: 'projectPersons',
-      visible: true,
-      editable: false,
-      deletable: false,
-    };
-
     const about = {
       title: 'О проекте',
       url: '/#about',
@@ -44,7 +36,6 @@ export class MenuInitializerService implements OnModuleInit {
 
     await Promise.all([
       this.menuModel.create(about),
-      this.menuModel.create(projectPersons),
       this.menuModel.create(organizators),
       this.menuModel.create(partners),
     ]).then((data) => console.log(data));
