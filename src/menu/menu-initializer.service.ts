@@ -12,7 +12,7 @@ export class MenuInitializerService implements OnModuleInit {
     await this.menuModel.deleteMany({});
     const partners = {
       title: 'Информационные партнеры',
-      url: 'our-partners',
+      url: '/our-partners',
       visible: true,
       editable: false,
       deletable: false,

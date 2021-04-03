@@ -9,6 +9,10 @@ import { SubcategoryService } from './subcategory.service';
 @Module({
   imports: [DatabaseModule],
   controllers: [MenuController, SubcategoryController],
-  providers: [MenuService, MenuInitializerService, SubcategoryService],
+  providers: [
+    MenuService,
+    // MenuInitializerService,
+    SubcategoryService,
+  ],
 })
 export class MenuModule {}
