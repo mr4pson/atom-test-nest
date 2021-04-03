@@ -15,7 +15,9 @@ export class MenuService {
   }
 
   findAllVisible(): Observable<Menu[]> {
-    return from(this.menuModel.find({ visible: true }).exec());
+    return from(
+      this.menuModel.find({ visible: true }).populate('subcategories').exec(),
+    );
   }
 
   findById(id: Partial<Menu> | string): Observable<Menu> {
