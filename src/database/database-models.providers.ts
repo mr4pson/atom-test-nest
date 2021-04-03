@@ -18,6 +18,7 @@ import {
   QUESTION_MODEL,
   QUESTION_OPTION_MODEL,
   SUBCATEGORY_MODEL,
+  SUPPORTER_MODEL,
   USER_MODEL,
 } from './database.constants';
 import { Faq, FaqSchema } from './faq.model';
@@ -31,6 +32,7 @@ import { Partner, PartnerSchema } from './partner.model';
 import { Question, QuestionSchema } from './question.model';
 import { QuestionOption, QuestionOptionSchema } from './questionOption.model';
 import { Subcategory, SubcategorySchema } from './subcategory.model';
+import { SupporterSchema } from './supporter.model';
 import { userModelFn } from './user.model';
 
 export const databaseModelsProviders = [
@@ -123,6 +125,12 @@ export const databaseModelsProviders = [
         OrganizationTypeSchema,
         'organizationTypes',
       ),
+    inject: [DATABASE_CONNECTION],
+  },
+  {
+    provide: SUPPORTER_MODEL,
+    useFactory: (connection: Connection) =>
+      connection.model<Partner>('Supporter', SupporterSchema, 'supporters'),
     inject: [DATABASE_CONNECTION],
   },
 ];

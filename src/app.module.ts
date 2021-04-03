@@ -1,3 +1,4 @@
+import { SupportersModule } from './supporters/supporters.module';
 import { MenuModule } from './menu/menu.module';
 import { AttachmentModule } from './attachment/attachment.module';
 import { StatisticsModule } from './statistics/statistics.module';
@@ -16,6 +17,7 @@ import { CounterParametersModule } from './counterParameters/counterParameters.m
 
 @Module({
   imports: [
+    SupportersModule,
     MenuModule,
     AttachmentModule,
     StatisticsModule,

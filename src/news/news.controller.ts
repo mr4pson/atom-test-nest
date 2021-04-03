@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HasRoles } from 'src/auth/guard/has-roles.decorator';
 import { RolesGuard } from 'src/auth/guard/roles.guard';
+import { News } from 'src/database/news.model';
 import { RoleType } from 'src/shared/enum/role-type.enum';
 import { ParseObjectIdPipe } from 'src/shared/pipe/parse-object-id.pipe';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
@@ -33,14 +34,14 @@ export class NewsController {
   }
 
   @Get(':id')
-  getFaqById(@Param('id', ParseObjectIdPipe) id: string): Observable<any> {
+  getFaqById(@Param('id', ParseObjectIdPipe) id: string): Observable<News> {
     return this.newsService.findById(id);
   }
 
   @Post('')
   @HasRoles(RoleType.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  createNews(@Body() news: ChangeNewsDto, @Res() res: any): Observable<any> {
+  createNews(@Body() news: ChangeNewsDto, @Res() res: any): Observable<News> {
     return this.newsService.save(news).pipe(
       map((news) => {
         return res
@@ -58,7 +59,7 @@ export class NewsController {
     @Param('id', ParseObjectIdPipe) id: string,
     @Body() news: ChangeNewsDto,
     @Res() res: any,
-  ): Observable<any> {
+  ): Observable<News> {
     return this.newsService.update(id, news).pipe(
       map((news) => {
         return res
@@ -75,7 +76,7 @@ export class NewsController {
   deleteNews(
     @Param('id', ParseObjectIdPipe) id: string,
     @Res() res: any,
-  ): Observable<any> {
+  ): Observable<News> {
     return this.newsService.delete(id).pipe(
       map((news) => {
         return res
