@@ -33,6 +33,11 @@ export class MenuController {
     return this.menuService.findAll();
   }
 
+  @Get('get-visible-menus')
+  getAllVisibleMenus(): Observable<Menu[]> {
+    return this.menuService.findAllVisible();
+  }
+
   @Get(':id')
   getMenuById(@Param('id', ParseObjectIdPipe) id: string): Observable<Menu> {
     return this.menuService.findById(id);
