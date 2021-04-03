@@ -23,7 +23,7 @@ import { ParseObjectIdPipe } from 'src/shared/pipe/parse-object-id.pipe';
 import { ChangeSupporterDto } from './changeSupporter.dto';
 import { SupportersService } from './supporters.service';
 
-@ApiTags('news')
+@ApiTags('supporters')
 @Controller({ path: 'supporters', scope: Scope.REQUEST })
 export class SupportersController {
   constructor(private supporterService: SupportersService) {}

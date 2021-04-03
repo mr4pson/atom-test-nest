@@ -25,7 +25,7 @@ export class NewsService {
       this.newsModel.findOne({ _id: id }).populate('subcategory').exec(),
     ).pipe(
       mergeMap((p) => (p ? of(p) : EMPTY)),
-      throwIfEmpty(() => new NotFoundException(`faq:$id was not found`)),
+      throwIfEmpty(() => new NotFoundException(`news:$id was not found`)),
     );
   }
 

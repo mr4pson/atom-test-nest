@@ -10,6 +10,7 @@ import {
   ATTACHMENT_MODEL,
   COUNTER_PARAMETERS_MODEL,
   DATABASE_CONNECTION,
+  DICTATION_QUESTION_MODEL,
   FAQ_MODEL,
   MENU_MODEL,
   NEWS_MODEL,
@@ -21,6 +22,7 @@ import {
   SUPPORTER_MODEL,
   USER_MODEL,
 } from './database.constants';
+import { DictationQuestionSchema } from './dictation-question.model';
 import { Faq, FaqSchema } from './faq.model';
 import { Menu, MenuSchema } from './menu.model';
 import { News, NewsSchema } from './news.model';
@@ -131,6 +133,16 @@ export const databaseModelsProviders = [
     provide: SUPPORTER_MODEL,
     useFactory: (connection: Connection) =>
       connection.model<Partner>('Supporter', SupporterSchema, 'supporters'),
+    inject: [DATABASE_CONNECTION],
+  },
+  {
+    provide: DICTATION_QUESTION_MODEL,
+    useFactory: (connection: Connection) =>
+      connection.model<Partner>(
+        'DictationQuestions',
+        DictationQuestionSchema,
+        'dictationQuestions',
+      ),
     inject: [DATABASE_CONNECTION],
   },
 ];
