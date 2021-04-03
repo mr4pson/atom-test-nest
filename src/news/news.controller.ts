@@ -34,7 +34,7 @@ export class NewsController {
   }
 
   @Get(':id')
-  getFaqById(@Param('id', ParseObjectIdPipe) id: string): Observable<News> {
+  getNewsById(@Param('id', ParseObjectIdPipe) id: string): Observable<News> {
     return this.newsService.findById(id);
   }
 
