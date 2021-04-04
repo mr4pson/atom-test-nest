@@ -33,6 +33,20 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @Get('getByName')
+  @HasRoles(RoleType.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  getUserByName2(): Observable<Partial<User[]>> {
+    return this.userService.findAll();
+  }
+
+  @Get('getByName/:name')
+  @HasRoles(RoleType.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  getUserByName(@Param('name') name: string): Observable<Partial<User[]>> {
+    return this.userService.findByName(name);
+  }
+
   @Get(':id')
   getUser(
     @Param('id', ParseObjectIdPipe) id: string,
