@@ -37,6 +37,11 @@ export class SubcategoryController {
     return this.subcategoryService.findAll();
   }
 
+  @Get('byLink/:link')
+  getSubcatrgoryByLink(@Param('link') link: string): Observable<Subcategory> {
+    return this.subcategoryService.findByLink(link);
+  }
+
   @Get(':id')
   getMenuById(
     @Param('id', ParseObjectIdPipe) id: string,

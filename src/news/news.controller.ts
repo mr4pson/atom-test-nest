@@ -19,6 +19,7 @@ import { RolesGuard } from 'src/auth/guard/roles.guard';
 import { News } from 'src/database/news.model';
 import { RoleType } from 'src/shared/enum/role-type.enum';
 import { ParseObjectIdPipe } from 'src/shared/pipe/parse-object-id.pipe';
+import { shuffle } from 'src/shared/utils/utils';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { ChangeNewsDto } from './changeNews.dto';
 import { NewsService } from './news.service';
@@ -34,8 +35,34 @@ export class NewsController {
   }
 
   @Get(':id')
-  getNewsById(@Param('id', ParseObjectIdPipe) id: string): Observable<News> {
+  getPageById(@Param('id', ParseObjectIdPipe) id: string): Observable<News> {
     return this.newsService.findById(id);
+  }
+
+  @Get('getRecommendedList/:link')
+  getRecommendedPages(@Param('link') link: string): Observable<News[]> {
+    return this.newsService
+      .findAll()
+      .pipe(
+        map((news) =>
+          shuffle(
+            news.filter((newsItem) => newsItem.url !== link).slice(0, 10),
+          ),
+        ),
+      );
+  }
+
+  @Get('getByLink/:link')
+  getPageByLink(@Param('link') link: string): Observable<News> {
+    return this.newsService.findByLink(link);
+  }
+
+  @Get(':categoryLink/:subcategoryLink')
+  getFaqByLinks(
+    @Param('categoryLink') categoryLink: string,
+    @Param('subcategoryLink') subcategoryLink: string,
+  ): Observable<News> {
+    return this.newsService.findByLinks(categoryLink, subcategoryLink);
   }
 
   @Post('')
