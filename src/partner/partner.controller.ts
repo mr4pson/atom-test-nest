@@ -52,10 +52,10 @@ export class PartnerController {
   @HasRoles(RoleType.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   createPartner(
-    @Body() news: ChangePartnerDto,
+    @Body() partner: ChangePartnerDto,
     @Res() res: any,
   ): Observable<any> {
-    return this.partnerService.save(news).pipe(
+    return this.partnerService.save(partner).pipe(
       map((partner) => {
         return res
           .location('/partners/' + partner._id)

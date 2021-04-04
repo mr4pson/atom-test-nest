@@ -70,7 +70,6 @@ export class AttachmentController {
   @ApiBearerAuth()
   // @UseGuards(AuthGuard)
   uploadAttachments(@UploadedFiles() files: any[]) {
-    console.log(files);
     return this.attachmentService.addAttachments(files, 'authUserId');
   }
 }

@@ -14,9 +14,11 @@ import { DatabaseModule } from './database/database.module';
 import { UserModule } from './user/user.module';
 import { NewsModule } from './news/news.module';
 import { CounterParametersModule } from './counterParameters/counterParameters.module';
+import { DictationQuestionsModule } from './dictationQuestions/dictation-questions.module';
 
 @Module({
   imports: [
+    DictationQuestionsModule,
     SupportersModule,
     MenuModule,
     AttachmentModule,
