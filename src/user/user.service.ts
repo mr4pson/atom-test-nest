@@ -28,6 +28,16 @@ export class UserService {
     return from(this.userModel.findOne({ username }).exec());
   }
 
+  findByName(username: string): Observable<User[]> {
+    return from(
+      this.userModel
+        .find({
+          fullName: { $regex: username, $options: 'i' },
+        })
+        .exec(),
+    );
+  }
+
   existsByUsername(username: string): Observable<boolean> {
     return from(this.userModel.exists({ username }));
   }
