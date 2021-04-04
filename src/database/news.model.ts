@@ -6,6 +6,7 @@ interface News extends Document {
   readonly description: string;
   readonly uploadFile: string;
   readonly status: string; //TODO: add enum
+  readonly url: string;
   readonly subcategory: Partial<Subcategory>;
 }
 
@@ -17,6 +18,7 @@ const NewsSchema = new Schema(
     description: SchemaTypes.String,
     uploadFile: SchemaTypes.String,
     status: SchemaTypes.String,
+    url: { type: SchemaTypes.String, unique: true },
     subcategory: {
       type: SchemaTypes.ObjectId,
       ref: 'Subcategory',

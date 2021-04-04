@@ -27,6 +27,19 @@ export class SubcategoryService {
     );
   }
 
+  findByLink(url: string): Observable<Subcategory> {
+    return from(
+      this.subcategoryModel
+        .findOne({ url: { $regex: url, $options: 'i' } })
+        .exec(),
+    ).pipe(
+      mergeMap((p) => (p ? of(p) : EMPTY)),
+      throwIfEmpty(
+        () => new NotFoundException(`subcategory:$url was not found`),
+      ),
+    );
+  }
+
   save(data: ChangeSubcategoryDto): Observable<Subcategory> {
     const createSubcateogry: Promise<Subcategory> = this.subcategoryModel.create(
       {
