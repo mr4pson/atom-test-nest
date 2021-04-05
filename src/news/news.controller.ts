@@ -17,6 +17,7 @@ import { map } from 'rxjs/operators';
 import { HasRoles } from 'src/auth/guard/has-roles.decorator';
 import { RolesGuard } from 'src/auth/guard/roles.guard';
 import { News } from 'src/database/news.model';
+import { Subcategory } from 'src/database/subcategory.model';
 import { RoleType } from 'src/shared/enum/role-type.enum';
 import { ParseObjectIdPipe } from 'src/shared/pipe/parse-object-id.pipe';
 import { shuffle } from 'src/shared/utils/utils';
@@ -32,6 +33,36 @@ export class NewsController {
   @Get('')
   getNews(): Observable<any[]> {
     return this.newsService.findAll();
+  }
+
+  @Get('getByName')
+  @HasRoles(RoleType.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  getUserByName2(): Observable<Partial<News[]>> {
+    return this.newsService.findAll();
+  }
+
+  @Get('getByName/:name')
+  @HasRoles(RoleType.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  getUserByName(@Param('name') name: string): Observable<Partial<News[]>> {
+    return this.newsService.findByName(name);
+  }
+
+  @Get('getByCategory')
+  @HasRoles(RoleType.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  getUserByCategory2(): Observable<Partial<News[]>> {
+    return this.newsService.findAll();
+  }
+
+  @Get('getByCategory/:id')
+  @HasRoles(RoleType.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  getUserByCategory(
+    @Param('id', ParseObjectIdPipe) id: Partial<Subcategory>,
+  ): Observable<Partial<News[]>> {
+    return this.newsService.findByCategory(id);
   }
 
   @Get(':id')
