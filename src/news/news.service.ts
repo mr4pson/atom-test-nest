@@ -53,7 +53,7 @@ export class NewsService {
         });
       }),
       switchMap((subcategory: Subcategory) => {
-        return this.newsModel.find({ subcategory: subcategory._id });
+        return this.newsModel.find({ subcategory: subcategory?._id });
       }),
       mergeMap((p) => (p ? of(p) : EMPTY)),
       throwIfEmpty(() => new NotFoundException(`news:$id was not found`)),
