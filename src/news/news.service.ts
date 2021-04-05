@@ -30,6 +30,26 @@ export class NewsService {
     );
   }
 
+  findByName(name: string): Observable<News[]> {
+    return from(
+      this.newsModel
+        .find({
+          name: { $regex: name, $options: 'i' },
+        })
+        .exec(),
+    );
+  }
+
+  findByCategory(id: Partial<Subcategory>): Observable<News[]> {
+    return from(
+      this.newsModel
+        .find({
+          subcategory: id,
+        })
+        .exec(),
+    );
+  }
+
   findByLink(link: string): Observable<News> {
     return from(
       this.newsModel.findOne({ url: link }).populate('subcategory').exec(),
