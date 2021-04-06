@@ -26,7 +26,7 @@ export class OrganizationTypeInitializerService implements OnModuleInit {
     };
 
     const defaultType = {
-      title: 'Без рубрики',
+      title: '',
     };
 
     await Promise.all([
