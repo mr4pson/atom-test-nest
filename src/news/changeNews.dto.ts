@@ -28,6 +28,13 @@ export class ChangeNewsDto {
     type: String,
     required: true,
   })
+  readonly preview: string;
+
+  @IsNotEmpty()
+  @ApiProperty({
+    type: String,
+    required: true,
+  })
   readonly subcategory: Subcategory;
 
   @IsNotEmpty()
