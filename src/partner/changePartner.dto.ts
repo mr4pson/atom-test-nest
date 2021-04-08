@@ -37,6 +37,12 @@ export class ChangePartnerDto {
   })
   readonly description: string;
 
+  @ApiProperty({
+    type: String,
+    required: true,
+  })
+  readonly ownType: string;
+
   @IsNotEmpty()
   @ApiProperty({
     type: Boolean,
