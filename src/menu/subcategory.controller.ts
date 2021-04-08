@@ -17,6 +17,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { HasRoles } from 'src/auth/guard/has-roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guard/roles.guard';
+import { Menu } from 'src/database/menu.model';
 import { Subcategory } from 'src/database/subcategory.model';
 import { RoleType } from 'src/shared/enum/role-type.enum';
 import { ParseObjectIdPipe } from 'src/shared/pipe/parse-object-id.pipe';
@@ -53,13 +54,15 @@ export class SubcategoryController {
   @HasRoles(RoleType.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   createSubcategory(
-    @Body() subcategory: ChangeSubcategoryDto,
+    @Body() subcategoryBody: ChangeSubcategoryDto,
     @Res() res: any,
   ): Observable<any> {
     let subcategoryId;
-    return this.subcategoryService.save(subcategory).pipe(
+    let curSubcategory;
+    return this.subcategoryService.save(subcategoryBody).pipe(
       switchMap((subcategory) => {
         subcategoryId = subcategory._id;
+        curSubcategory = subcategory;
         return this.menuService.findById(subcategory.menu);
       }),
       switchMap((menu) => {
@@ -75,7 +78,7 @@ export class SubcategoryController {
         });
       }),
       map((menu) => {
-        return res.status(HttpStatus.CREATED).json(menu);
+        return res.status(HttpStatus.CREATED).json(curSubcategory);
       }),
     );
   }
@@ -104,13 +107,18 @@ export class SubcategoryController {
   deleteMenuById(
     @Param('id', ParseObjectIdPipe) id: string,
     @Res() res: any,
-  ): Observable<Subcategory[]> {
-    return this.subcategoryService.deleteById(id).pipe(
-      switchMap(() => {
-        return this.subcategoryService.findAll();
+  ): Observable<Menu> {
+    let menuId;
+    return this.subcategoryService.findById(id).pipe(
+      switchMap((subcategory) => {
+        menuId = subcategory.menu;
+        return this.subcategoryService.deleteById(id);
       }),
-      map((subcategories) => {
-        return res.status(HttpStatus.OK).json(subcategories);
+      switchMap((subcategory) => {
+        return this.menuService.findById(menuId);
+      }),
+      map((menu) => {
+        return res.status(HttpStatus.OK).json(menu);
       }),
     );
   }
