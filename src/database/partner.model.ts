@@ -7,6 +7,7 @@ interface Partner extends Document {
   readonly massMedia: string;
   readonly uploadFile: string;
   readonly description: string;
+  readonly ownType: string;
   readonly visible: boolean;
   readonly organizationType: Partial<OrganizationType>;
 }
@@ -20,6 +21,7 @@ const PartnerSchema = new Schema(
     massMedia: SchemaTypes.String,
     uploadFile: SchemaTypes.String,
     description: SchemaTypes.String,
+    ownType: SchemaTypes.String,
     visible: SchemaTypes.Boolean,
     organizationType: {
       type: SchemaTypes.ObjectId,
