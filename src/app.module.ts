@@ -1,3 +1,4 @@
+import { CsvExportModule } from './csv/csv-export.module';
 import { SupportersModule } from './supporters/supporters.module';
 import { MenuModule } from './menu/menu.module';
 import { AttachmentModule } from './attachment/attachment.module';
@@ -18,6 +19,7 @@ import { DictationQuestionsModule } from './dictationQuestions/dictation-questio
 
 @Module({
   imports: [
+    CsvExportModule,
     DictationQuestionsModule,
     SupportersModule,
     MenuModule,

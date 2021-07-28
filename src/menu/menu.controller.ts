@@ -90,7 +90,7 @@ export class MenuController {
     return this.menuService.deleteById(id).pipe(
       switchMap((menu) => {
         const observables: Observable<Subcategory>[] = [];
-        menu.subcategories.forEach(subcategory => {
+        menu.subcategories.forEach((subcategory) => {
           observables.push(this.subcategoryService.deleteById(subcategory));
         });
         return observables;
