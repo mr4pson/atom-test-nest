@@ -23,7 +23,6 @@ export class CsvExportController {
         Телефон: user.phone,
         Город: user.city,
         Ник: user.username,
-        'Хэш пароля': user.password,
       };
     });
 

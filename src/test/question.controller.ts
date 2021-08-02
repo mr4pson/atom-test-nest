@@ -32,7 +32,6 @@ export class QuestionController {
     private questionOptionService: QuestionOptionService,
   ) {}
   @Get('')
-  @UseGuards(JwtAuthGuard)
   getQuestions() {
     return this.questionService.findAll();
   }
