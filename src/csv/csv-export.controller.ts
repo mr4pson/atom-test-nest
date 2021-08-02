@@ -28,12 +28,12 @@ export class CsvExportController {
 
     const csv = await json2csvAsync(users, { useLocaleFormat: true });
 
-    const BOM = '\uFEFF';
-    const csvContent = BOM + csv;
+    // const BOM = '\uFEFF';
+    // const csvContent = BOM + csv;
 
     res.header('Content-type', 'text/csv; charset=utf-8');
     res.attachment('user-table.csv');
 
-    return res.end(csvContent);
+    return res.end(csv);
   }
 }
