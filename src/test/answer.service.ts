@@ -15,8 +15,10 @@ export class AnswerService {
     @Inject(REQUEST) private req: AuthenticatedRequest,
   ) {}
 
-  findByUserId(): Observable<Answer[]> {
-    return from(this.answerModel.find({ author: this.req.user.id }).exec());
+  findByUserId(id): Observable<Answer[]> {
+    return from(
+      this.answerModel.find({ author: id }).populate('author').exec(),
+    );
   }
 
   save(data: AnswerDto): Observable<Answer> {
