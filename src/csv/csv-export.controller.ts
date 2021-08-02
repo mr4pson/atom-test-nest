@@ -26,7 +26,10 @@ export class CsvExportController {
       };
     });
 
-    const csv = await json2csvAsync(users, { useLocaleFormat: true });
+    const csv = await json2csvAsync(users, {
+      useLocaleFormat: true,
+      delimiter: { field: ';' },
+    });
 
     // const BOM = '\uFEFF';
     // const csvContent = BOM + csv;
