@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    @font-face {
+      font-family: "Nexa Script Light";
+      src: url("/nexa-script-light.eot"); /* IE9 Compat Modes */
+      src: url("/nexa-script-light.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+        url("/nexa-script-light.otf") format("opentype"), /* Open Type Font */
+        url("/nexa-script-light.svg") format("svg"), /* Legacy iOS */
+        url("/nexa-script-light.ttf") format("truetype"), /* Safari, Android, iOS */
+        url("/nexa-script-light.woff") format("woff"), /* Modern Browsers */
+        url("/nexa-script-light.woff2") format("woff2"); /* Modern Browsers */
+      font-weight: normal;
+      font-style: normal;
+    }
+    body {
+      margin: 0;
+    }
+    .image {
+      position: relative;
+      background-color: #F0F7FB;
+      width: 707px;
+      height: 505px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .image .full-name {
+      position: absolute;
+      font-size: 19px;
+      top: 223px;
+    }
+    .image .percentage {
+      font-family: Nexa Script Light;
+      position: absolute;
+      font-size: 50px;
+      left: 73px;
+      top: 278px;
+      font-weight: 600;
+      color: #0064f6;
+    }
+  </style>
+  <title>Атомный диктант. Поделиться дипломом</title>
+</head>
+
+<body>
+  <div class="image">
+    <div class="full-name">{{ author }}</div>
+    <div class="percentage">{{ percentage }}%</div>
+    <img width="707" alt="Диплом" src="https://atomdiktant.ru/diploma.png"></div>
+</body>
+
+</html>
