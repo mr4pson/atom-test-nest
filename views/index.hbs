@@ -6,13 +6,20 @@
   <style>
     @font-face {
       font-family: "Nexa Script Light";
-      src: url("/nexa-script-light.eot"); /* IE9 Compat Modes */
-      src: url("/nexa-script-light.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-        url("/nexa-script-light.otf") format("opentype"), /* Open Type Font */
-        url("/nexa-script-light.svg") format("svg"), /* Legacy iOS */
-        url("/nexa-script-light.ttf") format("truetype"), /* Safari, Android, iOS */
-        url("/nexa-script-light.woff") format("woff"), /* Modern Browsers */
-        url("/nexa-script-light.woff2") format("woff2"); /* Modern Browsers */
+      src: url("http://atomdiktant.ru:3100/nexa-script-light.eot"); /* IE9 Compat Modes */
+      src: url("http://atomdiktant.ru:3100/nexa-script-light.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+        url("http://atomdiktant.ru:3100/nexa-script-light.otf") format("opentype"), /* Open Type Font */
+        url("http://atomdiktant.ru:3100/nexa-script-light.svg") format("svg"), /* Legacy iOS */
+        url("http://atomdiktant.ru:3100/nexa-script-light.ttf") format("truetype"), /* Safari, Android, iOS */
+        url("http://atomdiktant.ru:3100/nexa-script-light.woff") format("woff"), /* Modern Browsers */
+        url("http://atomdiktant.ru:3100/nexa-script-light.woff2") format("woff2"); /* Modern Browsers */
+      font-weight: normal;
+      font-style: normal;
+    } 
+    @font-face {
+      font-family: "AGOpus";
+      src: url("http://atomdiktant.ru:3100/agopus.ttf") format("truetype"), /* Safari, Android, iOS */
+      url("http://atomdiktant.ru:3100/agopus.woff") format("woff"); /* Modern Browsers */
       font-weight: normal;
       font-style: normal;
     }
@@ -29,6 +36,7 @@
       justify-content: center;
     }
     .image .full-name {
+      font-family: AGOpus;
       position: absolute;
       font-size: 19px;
       top: 223px;
