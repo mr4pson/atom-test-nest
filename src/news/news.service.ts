@@ -2,7 +2,6 @@ import { Inject, Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { EMPTY, from, Observable, of } from 'rxjs';
 import { map, mergeMap, switchMap, throwIfEmpty } from 'rxjs/operators';
-import { databaseModelsProviders } from 'src/database/database-models.providers';
 import { MENU_MODEL, NEWS_MODEL } from 'src/database/database.constants';
 import { Menu } from 'src/database/menu.model';
 import { News } from 'src/database/news.model';
@@ -73,7 +72,9 @@ export class NewsService {
         });
       }),
       switchMap((subcategory: Subcategory) => {
-        return this.newsModel.find({ subcategory: subcategory?._id });
+        return this.newsModel
+          .find({ subcategory: subcategory?._id })
+          .sort({ createdAt: -1 });
       }),
       mergeMap((p) => (p ? of(p) : EMPTY)),
       throwIfEmpty(() => new NotFoundException(`news:$id was not found`)),
