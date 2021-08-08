@@ -29,7 +29,7 @@ import { UploadTypesEnum } from './upload-types.enum';
 @ApiTags('attachments')
 @Controller({ path: 'attachments', scope: Scope.REQUEST })
 export class AttachmentController {
-  constructor(private attachmentService: AbstractAttachmentService) {}
+  constructor(private attachmentService: AbstractAttachmentService) { }
 
   @Get(':fileName')
   @HttpCode(HttpStatus.OK)
@@ -71,5 +71,44 @@ export class AttachmentController {
   // @UseGuards(AuthGuard)
   uploadAttachments(@UploadedFiles() files: any[]) {
     return this.attachmentService.addAttachments(files, 'authUserId');
+  }
+
+  /**
+   * Upload froala attachments
+   * Note: The controller method
+   *
+   * @param {string} authUserId
+   * @param {any[]} files
+   * @memberof CommonController
+   */
+  @Post('/addFroalaAttachments')
+  // @ApiOperation({ title: 'Upload attachments' })
+  @ApiCreatedResponse({
+    description: 'The record has been created successfully',
+  })
+  @ApiBadRequestResponse({ description: 'Bad Request' })
+  @ApiForbiddenResponse({ description: 'Forbidden' })
+  @ApiConsumes('multipart/form-data')
+  // @ApiImplicitFile({
+  //   name: 'files',
+  //   required: true,
+  //   description: 'File Attachments',
+  // })
+  @UseInterceptors(
+    FilesInterceptor(
+      'files',
+      // +process.env.MAX_FILE_COUNTS,
+      20,
+      MulterUtils.getConfig(UploadTypesEnum.ANY),
+    ),
+  )
+  @ApiBearerAuth()
+  // @UseGuards(AuthGuard)
+  async uploadFroalaAttachments(@UploadedFiles() files: any[]) {
+    const attachment = await this.attachmentService.addAttachments(
+      files,
+      'authUserId',
+    );
+    return { link: `/api/attachments/${attachment[0].fileName}` };
   }
 }
